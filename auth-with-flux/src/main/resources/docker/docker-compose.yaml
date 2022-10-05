@@ -1,0 +1,28 @@
+version: "3.4"
+
+services:
+  reactive-app:
+    container_name: reactive-app
+    image: postgres
+    environment:
+      # База с указанным именем будет создана в разворачиваемом контейнере
+      # Пользователь будет иметь имя : postgres ; пароль : postgres
+      POSTGRES_DB: "reactive-app"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5433:5432"
+    #это позволит Docker после выключения, сохранить состояние твоего контейнера
+    # при следующем включении, тебе не придется создавать его заново
+    restart: unless-stopped
+    networks:
+      - reactive-app
+
+#определяем именя сетей и драйвера для их функционирования
+# bridge - является типом сети по умолчанию для контейнеров.
+# в данном случае будет создана сеть с именем `postgres`
+# и типом исопльзуемого драйвера `bridge`
+networks:
+  reactive-app:
+    driver: bridge

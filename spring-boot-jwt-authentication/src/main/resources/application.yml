@@ -1,0 +1,22 @@
+app:
+  security:
+    cors:
+      origin: http://localhost:3000
+    jwt:
+      key-alias: jwtsigning
+      keystore-location: keys/keystore.jks
+      keystore-password: password
+      private-key-passphrase: password
+
+logging:
+  level:
+    root: debug
+    reactor: debug
+    org:
+      easy:
+        email: debug
+      springframework:
+        web: debug
+        security: trace
+        security.oauth2: trace
+

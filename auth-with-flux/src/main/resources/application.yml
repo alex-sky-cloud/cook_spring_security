@@ -1,0 +1,28 @@
+HOST_DB: localhost:5433
+DB_NAME: chat_db
+USER_NAME_DB: chat_user
+USER_PASSWORD_DB: user_password
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          r2dbc: DEBUG # режим DEBUG, чтобы отслеживать логи при работе с базой данных через  R2DBC-драйвер
+    root: DEBUG
+spring:
+  flyway:
+    url: jdbc:postgresql://${HOST_DB}/${DB_NAME}
+    user: ${USER_NAME_DB}
+    password: ${USER_PASSWORD_DB}
+  r2dbc:
+    url: r2dbc:postgresql://${HOST_DB}/${DB_NAME}
+    username: ${USER_NAME_DB}
+    password:  ${USER_PASSWORD_DB}
+
+# начиная с версии 2.3, Spring Boot скрывает поле сообщения (message) в ответе,
+# чтобы избежать утечки конфиденциальной информации;
+# мы можем использовать это свойство со значением `always`, чтобы включить его
+server:
+  error:
+    include-message: always
