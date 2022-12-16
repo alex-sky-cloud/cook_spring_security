@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  keycloakdb:
+    container_name: keycloak_db
+    image: postgres:14
+    environment:
+      # База с указанным именем будет создана в разворачиваемом контейнере
+      # Пользователь будет иметь имя: postgres ; пароль : postgres
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5432:5432"
+    volumes:
+      - .\keycloak_db:/var/lib/postgresql
+      - .\init.sql:/docker-entrypoint-initdb.d/init.sql
+    #это позволит Docker после выключения, сохранить состояние твоего контейнера
+    # при следующем включении, тебе не придется сохранять контейнер
+    restart: unless-stopped
+    networks:
+      - keycloak_network
+
+  keycloak:
+    container_name: keycloak_blog
+    environment:
+      DB_DATABASE: ${POSTGRESQL_DB}
+      DB_USER: ${POSTGRESQL_USER}
+      DB_PASSWORD: ${POSTGRESQL_PASS}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_VENDOR: ${DB_VENDOR}
+      DB_ADDR: ${DB_ADDR}
+      DEBUG_PORT: ${DEBUG_PORT}
+      DB_PORT: ${DB_PORT}
+      TZ: ${TZ}
+      DEBUG: ${DEBUG}
+    image: jboss/keycloak:latest
+    depends_on:
+      - keycloakdb
+    ports:
+      - "28080:8080"
+      - "8787:8787" # debug port
+    networks:
+      - keycloak_network
+
+  pgadmin:
+    container_name: pgadmin_keycloak_db
+    image: dpage/pgadmin4:5.7
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "user@db.com"
+      PGADMIN_DEFAULT_PASSWORD: "user"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5055:80"
+    restart: unless-stopped
+    networks:
+      - keycloak_network
+    depends_on:
+      - keycloakdb
+
+networks:
+  keycloak_network:
+    driver: bridge
+    name:   keycloak_network

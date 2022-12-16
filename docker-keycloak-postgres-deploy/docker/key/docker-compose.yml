@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  keycloakdb:
+    container_name: keycloak_db
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRESQL_DB}
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+    volumes:
+      - .\keycloak_db:/var/lib/postgresql
+      - .\init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - local-keycloak
+
+  keycloak:
+    depends_on:
+      - keycloakdb
+    container_name: local_keycloak
+    environment:
+      DB_DATABASE: ${POSTGRESQL_DB}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      DB_VENDOR: ${DB_VENDOR}
+      DB_ADDR: ${DB_ADDR}
+      DEBUG_PORT: ${DEBUG_PORT}
+      DB_PORT: ${DB_PORT}
+      TZ: ${TZ}
+      DEBUG: ${DEBUG}
+    image: jboss/keycloak:latest
+    ports:
+      - "28080:8080"
+      - "8787:8787"
+    restart: unless-stopped
+    networks:
+      - local-keycloak
+
+  pgadmin:
+    container_name: pgadmin_keycloak_db
+    image: dpage/pgadmin4:5.7
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "user@db.com"
+      PGADMIN_DEFAULT_PASSWORD: "user"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5055:80"
+    restart: unless-stopped
+    networks:
+      - local-keycloak
+    depends_on:
+      - keycloakdb
+
+
+networks:
+  local-keycloak:
