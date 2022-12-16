@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  postgres:
+    container_name: company
+    image: postgres:14
+    environment:
+      # База с указанным именем будет создана в разворачиваемом контейнере
+      # Пользователь будет иметь имя: postgres ; пароль : postgres
+      POSTGRES_DB: "company"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "5432:5432"
+    volumes:
+      - .\company-db:/var/lib/postgresql
+    #это позволит Docker после выключения, сохранить состояние твоего контейнера
+    # при следующем включении, тебе не придется сохранять контейнер
+    restart: unless-stopped
+    networks:
+      - postgres
+
+#  pgadmin:
+#    container_name: pgadmin_planner-users
+#    image: dpage/pgadmin4:5.7
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: "user@db.com"
+#      PGADMIN_DEFAULT_PASSWORD: "user"
+#      PGADMIN_CONFIG_SERVER_MODE: "False"
+#    ports:
+#      - "5055:80"
+#    restart: unless-stopped
+#    networks:
+#      - postgres
+
+networks:
+  postgres:
+    driver: bridge

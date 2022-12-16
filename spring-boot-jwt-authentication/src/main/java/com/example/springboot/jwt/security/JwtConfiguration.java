@@ -116,10 +116,8 @@ public class JwtConfiguration {
 	@Bean
 	public JwtDecoder jwtDecoder(RSAPublicKey rsaPublicKey) {
 
-		NimbusJwtDecoder nimbusJwtDecoder = NimbusJwtDecoder
+		return NimbusJwtDecoder
 				.withPublicKey(rsaPublicKey)
 				.build();
-
-		return nimbusJwtDecoder;
 	}
 }
