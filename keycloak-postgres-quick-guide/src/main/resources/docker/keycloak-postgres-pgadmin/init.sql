@@ -1,0 +1,3 @@
+CREATE USER keycloak WITH PASSWORD 'kc';
+
+GRANT ALL PRIVILEGES ON DATABASE keycloak_db TO keycloak;

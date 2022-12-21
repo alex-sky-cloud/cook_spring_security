@@ -2,7 +2,7 @@ CREATE USER keycloak WITH PASSWORD 'kc';
 
 GRANT ALL PRIVILEGES ON DATABASE keycloak_db TO keycloak;
 
-DROP TABLE IF EXISTS Member;
+/*DROP TABLE IF EXISTS Member;
 
 CREATE TABLE Member (
                         id VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -23,4 +23,4 @@ CREATE TABLE Post (
                       createdAt TIMESTAMP DEFAULT NOW(),
                       CONSTRAINT fk_member FOREIGN KEY(authorId) REFERENCES Member(id)
                           ON DELETE SET NULL ON UPDATE CASCADE
-);
+);*/
