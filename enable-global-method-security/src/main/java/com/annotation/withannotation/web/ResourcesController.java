@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.stream.Collectors;
 
 @RestController
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
+/*@EnableGlobalMethodSecurity(jsr250Enabled = true) - deprecated*/
 @EnableMethodSecurity(prePostEnabled = false, jsr250Enabled = true)
 public class ResourcesController {
 
