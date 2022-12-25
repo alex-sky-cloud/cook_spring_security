@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity(debug = true)
-@EnableMethodSecurity /*необязательно*/
+@EnableMethodSecurity /*необязательно, он заменяется здесь @EnableWebSecurity*/
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -45,7 +45,9 @@ public class SecurityConfig {
 
         return authorities -> {
             Set<GrantedAuthority> mappedAuthorities = new HashSet<>();
-            var authority = authorities.iterator().next();
+            var authority = authorities
+                    .iterator()
+                    .next();
             boolean isOidc = authority instanceof OidcUserAuthority;
 
             if (isOidc) {
@@ -81,16 +83,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
+
+        http
+                .authorizeHttpRequests()
                 .requestMatchers("/customers*", "/users*")
                 .hasRole("read")
                 .anyRequest()
-                .permitAll();
-        http.oauth2Login()
+                .permitAll()
+                .and()
+                .oauth2Login()
                 .and()
                 .logout()
                 .addLogoutHandler(keycloakLogoutHandler)
                 .logoutSuccessUrl("/");
+
         return http.build();
     }
 }

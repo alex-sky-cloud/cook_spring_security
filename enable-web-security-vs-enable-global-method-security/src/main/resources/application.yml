@@ -1,0 +1,22 @@
+# на основе значения данной аннотации spirng будет определять,
+# какой класс, помеченный аннотацией @Configuration, нужно создать
+security:
+  annotation: true
+
+logging:
+  pattern:
+    # определяем формат более короткого отображение логов
+    console: '%C{1.yaml.} [%-5level] %d{HH:mm:ss} - %msg%n'
+  level:
+    org:
+      hibernate:
+        sql: debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
+
+      springframework:
+        web:
+          client: trace
+        security: trace

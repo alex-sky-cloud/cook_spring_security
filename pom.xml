@@ -27,6 +27,8 @@
         <module>spring-security-oauth2-postgres</module>
         <module>docker-keycloak-postgres-deploy</module>
         <module>keycloak-postgres-quick-guide</module>
+        <module>enable-web-security-vs-enable-global-method-security</module>
+        <module>enable-global-method-security</module>
     </modules>
 
 </project>
