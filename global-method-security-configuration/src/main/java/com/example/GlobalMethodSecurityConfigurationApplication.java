@@ -1,13 +1,13 @@
-package com.annotation;
+package com.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EnableGlobalMethodSecurityApplication {
+public class GlobalMethodSecurityConfigurationApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EnableGlobalMethodSecurityApplication.class, args);
+        SpringApplication.run(GlobalMethodSecurityConfigurationApplication.class, args);
     }
 
 }

@@ -25,6 +25,15 @@ public class ResourcesController {
         return "/protected -> userName : " + principal.getName() + " - authorities : " + auth;
     }
 
+
+    @RolesAllowed("USER")
+    @GetMapping("user")
+    public String getUserResourceMock(){
+
+
+        return "user";
+    }
+
     @RolesAllowed("ADMIN")
     @GetMapping("admin")
     public String getAdminResource(UsernamePasswordAuthenticationToken principal){

@@ -15,8 +15,7 @@ import java.util.stream.Collectors;
 @RestController
 public class AdminRestController {
 
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("admin")
+   @GetMapping("admin")
     public String getAdminResource(UsernamePasswordAuthenticationToken principal){
 
         String auth = principal

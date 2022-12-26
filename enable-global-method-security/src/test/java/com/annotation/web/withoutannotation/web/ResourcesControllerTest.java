@@ -7,6 +7,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsStringIgnoringCase;
@@ -89,4 +90,5 @@ class ResourcesControllerTest {
         assertEquals(200, statusCode);
         assertThat(actualResult, containsStringIgnoringCase("home"));
     }
+
 }

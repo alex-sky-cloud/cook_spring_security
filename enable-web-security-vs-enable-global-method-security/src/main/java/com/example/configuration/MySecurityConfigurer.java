@@ -2,22 +2,17 @@ package com.example.configuration;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 @ConditionalOnProperty(value = "security.annotation",
         havingValue = "true",
         matchIfMissing = false)
+@Configuration
 public class MySecurityConfigurer {
 
     /**
@@ -29,7 +24,7 @@ public class MySecurityConfigurer {
         http.csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/hello/**")
+                .requestMatchers("/home/**")
                 .permitAll()
                 .requestMatchers(HttpMethod.DELETE)
                 .hasRole("ADMIN")
@@ -44,14 +39,5 @@ public class MySecurityConfigurer {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         return http.build();
-    }
-
-
-    @Bean
-    public WebSecurityCustomizer ignoreResources() {
-
-        return webSecurity -> webSecurity
-                .ignoring()
-                .requestMatchers("/hello/**");
     }
 }
