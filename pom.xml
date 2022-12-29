@@ -30,6 +30,7 @@
         <module>enable-web-security-vs-enable-global-method-security</module>
         <module>enable-global-method-security</module>
         <module>spring-security-expression</module>
+        <module>retrieve-user-info-from-spring-security</module>
     </modules>
 
 </project>
