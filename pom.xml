@@ -32,6 +32,7 @@
         <module>spring-security-expression</module>
         <module>retrieve-user-info-from-spring-security</module>
         <module>spring-security-context-propagation</module>
+        <module>spring-security-dao-authentication-provider</module>
     </modules>
 
 </project>
