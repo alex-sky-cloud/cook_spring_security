@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Шаблон письма с помощью Thymeleaf и Spring boot</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+
+    <!-- use the font -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 48px;
+        }
+
+        .circle {
+            border-radius: 50%; /* Скругление углов изображения */
+            border: 5px solid #fff; /* Цвет и ширину рамки */
+            box-shadow: 2px 1px 5px #999999; /* Цвет и размер тени */
+        }
+
+        p {
+            font-size: 25px;
+            font-family: Cambria;
+        }
+    </style>
+</head>
+<body>
+<p th:text="${'Hello Dear ' + name}"></p>
+
+<p th:if="${name.length() > 5}">
+    Ваше имя имеет длину - более 5 символов!
+</p>
+<p>
+    Вы успешно прошли аутентификацию <b>Authentication has being passed.</b>
+    <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span>
+</p>
+
+<p>
+    Вы можете найте <b>встроенный значок</b> прямо под этим текстом.
+</p>
+<p>
+    <!--Для внешних изображений.-->
+    <a href="https://kipmu.ru/wp-content/uploads/ksplshd-scaled.jpg">
+        <img src="https://kipmu.ru/wp-content/uploads/ksplshd-scaled.jpg"
+             alt="http://localhost.com"
+             height="220"
+             width="220"
+             class="circle"/>
+    </a>
+</p>
+
+<p>Присоединенные изображения</p>
+<p>
+    <img src="cid:auth" alt="http://localhost.com"
+    height="220"
+    width="220"
+    class="circle" />
+</p>
+<p>
+    C Уважением, <br/>
+    <em th:text="${sign}"></em>
+<p th:text="${location}"></p>
+</p>
+</body>
+</html>
+

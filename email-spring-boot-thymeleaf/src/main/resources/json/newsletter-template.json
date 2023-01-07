@@ -1,0 +1,12 @@
+{
+  "mailFrom": "mark7548@rambler.ru",
+  "mailTo": "web.design.cloud@mail.ru" ,
+  "subject": "Пример шаблона письма.",
+  "attachments": null,
+  "propertiesMail": {
+    "name": "Developer Tom",
+    "sign": "Java Developer",
+    "typeTemplate": "newsletter-template",
+    "location": "United States"
+  }
+}

@@ -33,6 +33,12 @@
         <module>retrieve-user-info-from-spring-security</module>
         <module>spring-security-context-propagation</module>
         <module>spring-security-dao-authentication-provider</module>
+        <module>email-spring-boot-thymeleaf</module>
+        <module>basic-auth-with-spring-security</module>
+        <module>user-details-service-spring-security</module>
+        <module>spring-email</module>
+        <module>registration-login-spring-security-thymeleaf</module>
+        <module>registration-user-spring-security</module>
     </modules>
 
 </project>

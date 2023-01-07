@@ -1,0 +1,20 @@
+spring:
+  mail:
+    default-encoding: UTF-8
+    host: smtp.rambler.ru # обратитесь к настройкам вашего почтового сервера
+    username: mark7548@rambler.ru # обратитесь к настройкам вашего почтового сервера
+    password: k6GpAiYrBAdWWmH # обратитесь к настройкам вашего почтового сервера
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    protocol: smtp # обратитесь к настройкам вашего почтового сервера
+    test-connection: false
+
+logging:
+  level:
+    root: trace
+

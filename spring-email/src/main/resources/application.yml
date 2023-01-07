@@ -1,0 +1,22 @@
+logging:
+  level:
+    com:
+      email: trace
+
+spring:
+  mail:
+    host: smtp.rambler.ru
+    port: 25  # Данный сервер, принял сообщение только через порт 25, хотя доступны 465, 587
+    username: mark7548@rambler.ru
+    password: k6GpAiYrBAdWWmH
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
