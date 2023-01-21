@@ -11,7 +11,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example.springboot</groupId>
-	<artifactId>jwt</artifactId>
+	<artifactId>spring-boot-jwt-authentication</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<name>jwt</name>
 	<description>Stateless JWT authentication with Spring Boot</description>
