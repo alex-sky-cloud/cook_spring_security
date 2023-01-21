@@ -1,4 +1,4 @@
-package com.reg.model;
+package com.security.model;
 
 import lombok.Data;
 

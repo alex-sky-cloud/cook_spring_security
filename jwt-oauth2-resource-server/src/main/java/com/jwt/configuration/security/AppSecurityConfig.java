@@ -48,37 +48,37 @@ public class AppSecurityConfig {
         return new BCryptPasswordEncoder(rounds);
     }
 
-    /**
-     * Здесь мы указали список Authentication providers, которые будут
-     * зарегистрированы в {@link AuthenticationManager}
-     * {@link JwtAuthenticationProvider} большую часть его настраивает Spring Security,
-     * мы лишь только передаем в конструктор {@link JwtEncoder}, который ранее настроили
-     * в конфигурационном классе {@link JwtHelper}
-     * {@link JwtAuthenticationProvider} будет задействован при вызове метода
-     * oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt), определенного ниже, в цепочке
-     * Фильтров
-     * Ранее мы реализовали {@link UserDetailsService} и {@link CustomUserDetailsService},
-     * будет тем объектом, который мы передаем в конструктор {@link DaoAuthenticationProvider}
-     * {@link CustomUserDetailsService} - будет осуществлять поиск учетных данных пользователя,
-     * в базе данных.
-     */
-    @Bean
-    public AuthenticationManager authenticationManager(
-            CustomUserDetailsService customUserDetailsService,
-            JwtDecoder jwtDecoder) {
+        /**
+         * Здесь мы указали список Authentication providers, которые будут
+         * зарегистрированы в {@link AuthenticationManager}
+         * {@link JwtAuthenticationProvider} большую часть его настраивает Spring Security,
+         * мы лишь только передаем в конструктор {@link JwtEncoder}, который ранее настроили
+         * в конфигурационном классе {@link JwtHelper}
+         * {@link JwtAuthenticationProvider} будет задействован при вызове метода
+         * oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt), определенного ниже, в цепочке
+         * Фильтров
+         * Ранее мы реализовали {@link UserDetailsService} и {@link CustomUserDetailsService},
+         * будет тем объектом, который мы передаем в конструктор {@link DaoAuthenticationProvider}
+         * {@link CustomUserDetailsService} - будет осуществлять поиск учетных данных пользователя,
+         * в базе данных.
+         */
+        @Bean
+        public AuthenticationManager authenticationManager(
+                CustomUserDetailsService customUserDetailsService,
+                JwtDecoder jwtDecoder) {
 
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(customUserDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+            DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+            authProvider.setUserDetailsService(customUserDetailsService);
+            authProvider.setPasswordEncoder(passwordEncoder());
 
-        JwtAuthenticationProvider jwtAuthenticationProvider =
-                new JwtAuthenticationProvider(jwtDecoder);
+            JwtAuthenticationProvider jwtAuthenticationProvider =
+                    new JwtAuthenticationProvider(jwtDecoder);
 
-        List<AuthenticationProvider> providers =
-                List.of(authProvider, jwtAuthenticationProvider);
+            List<AuthenticationProvider> providers =
+                    List.of(authProvider, jwtAuthenticationProvider);
 
-        return new ProviderManager(providers);
-    }
+            return new ProviderManager(providers);
+        }
 
     @Bean
     TokenService tokenService() {

@@ -1,8 +1,8 @@
-package com.reg.web;
+package com.security.web;
 
-import com.reg.dto.UserDataDto;
-import com.reg.exception.UserAlreadyExistException;
-import com.reg.service.UserService;
+import com.security.dto.UserDataDto;
+import com.security.exception.UserAlreadyExistException;
+import com.security.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,12 +10,23 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
 public class RegistrationController {
 
     private final UserService userService;
+
+
+ /*   @GetMapping("/handleLoginErrors")
+    ModelAndView handleErrors(ModelAndView modelAndView){
+
+        modelAndView.setViewName("account/login");
+
+        return modelAndView;
+
+    }*/
 
     @GetMapping("/register")
     public String showRegistrationForm(final Model model){
@@ -30,9 +41,6 @@ public class RegistrationController {
                                    final BindingResult bindingResult,
                                    final Model model){
         if(bindingResult.hasErrors()){
-
-            /*ошибки не отображаются*/
-            model.addAttribute("userData", userData);
             return "account/register";
         }
         try {
@@ -44,9 +52,9 @@ public class RegistrationController {
                     "userData.email",
                     "An account already exists for this email."
             );
-            model.addAttribute("userData", userData);
+            model.addAttribute("formreg", userData);
             return "account/register";
         }
-        return "redirect:/login";
+        return "account/register";
     }
 }

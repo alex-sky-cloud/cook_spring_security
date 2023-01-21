@@ -1,8 +1,10 @@
-package com.reg.repository;
+package com.security.repository;
+
 
 import com.github.javafaker.Faker;
-import com.reg.model.Authority;
-import com.reg.model.UserModel;
+import com.security.model.Authority;
+import com.security.model.UserModel;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -30,15 +32,35 @@ public class UserRepository {
      */
     private final PasswordEncoder bCryptPasswordEncoder;
 
+    @PostConstruct
+    public void init(){
+
+        UserModel userModel = buildModel();
+
+        Set<Authority> authoritySet = userModel.getAuthoritySet();
+        Authority authorityAdmin = new Authority();
+        authorityAdmin.setName("ADMIN");
+
+        authoritySet.add(authorityAdmin);
+
+
+        Authority authorityUser = new Authority();
+        authorityUser.setName("USER");
+        authoritySet.add(authorityUser);
+
+        userRegistrationMapRepository.put(userModel.getEmail(), userModel);
+    }
 
     public void saveUserRegistration(UserModel userModel) {
 
         long idUser = idGenerator.getAndIncrement();
         userModel.setId(idUser);
 
+        Set<Authority> authoritySet = userModel.getAuthoritySet();
+
         Authority authorityAdmin = new Authority();
         authorityAdmin.setName("ADMIN");
-        Set<Authority> authoritySet = userModel.getAuthoritySet();
+
         authoritySet.add(authorityAdmin);
 
 
@@ -53,16 +75,14 @@ public class UserRepository {
         return Optional.ofNullable(userRegistrationMapRepository.get(email));
     }
 
-    private UserModel buildModel(Long idGenerated) {
+    private UserModel buildModel(){
 
         Faker faker = new Faker(new Locale("en-US"));
 
-        String email = "mail" + idGenerated + "@mail.com";
+        String email = "user@mail.com";
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
-        String password = "user" + idGenerated;
-
-
+        String passwordUser = "user";
 
         return UserModel
                 .UserModelBuilder
@@ -71,7 +91,8 @@ public class UserRepository {
                 .setEmail(email)
                 .setFirstName(firstName)
                 .setLastName(lastName)
-                .setPassword(bCryptPasswordEncoder.encode(password))
+                .setPassword(bCryptPasswordEncoder.encode(passwordUser))
                 .build();
     }
+
 }

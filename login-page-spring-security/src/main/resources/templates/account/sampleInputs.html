@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application - Form Samples - Inputs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body class="hold-transition register-page">
+<div class="register-logo">
+    <div class="card">
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Пример</p>
+            <form th:action="@{/sampleInputs}" th:object="${sampleInputs}" method="post">
+
+                <ul class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <li th:each="error : ${#fields.errors('*')}" th:text="${error}">error</li>
+                </ul>
+                <div>
+                    <label>Date:</label>
+                    <input type="text"
+                           th:field="*{dateField}"
+                           placeholder="yyyy-MM-dd"  th:errorclass="is-invalid"/>
+            <!--        <div class="alert alert-danger" th:if="${#fields.hasErrors('dateField')}">
+                        <p th:each="error : ${#fields.errors('dateField')}" th:text="${error}"></p>
+                    </div>-->
+                </div>
+                <div>
+                    <label>Integer:</label>
+                    <input type="number" th:field="*{numberField}" placeholder="integer"
+                           th:errorclass="is-invalid"/>
+                </div>
+                <div>
+                    <label>Double:</label>
+                    <input type="text" th:field="*{doubleField}" placeholder="double"
+                           th:errorclass="is-invalid"/>
+                </div>
+                <div>
+                    <label>String:</label>
+                    <input type="text" th:field="*{textField}" placeholder="string"
+                           th:errorclass="is-invalid"/>
+                </div>
+                <div>
+                    <label>Color:</label>
+                    <input type="color" th:field="*{colorField}" placeholder="color"
+                           th:errorclass="is-invalid" />
+                </div>
+                <div>
+                    <label>Date time:</label>
+                    <input type="datetime-local" th:field="*{dateTimeField}" placeholder="date"
+                           th:errorclass="is-invalid" />
+                </div>
+
+                <input type="submit" value="Submit"/>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

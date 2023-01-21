@@ -1,15 +1,12 @@
-package com.reg;
+package com.security;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@Disabled
-class RegistrationUserSpringSecurityApplicationTests {
+class LoginPageSpringSecurityApplicationTests {
 
     @Test
-    @Disabled
     void contextLoads() {
     }
 
