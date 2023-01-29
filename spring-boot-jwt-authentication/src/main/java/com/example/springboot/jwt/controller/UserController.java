@@ -1,6 +1,7 @@
 package com.example.springboot.jwt.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class UserController {
 	
 	private final UserDetailsService userDetailsService;
+
 
 	@GetMapping
 	public UserDetails getUser(Authentication authentication) {

@@ -1,7 +1,18 @@
 package com.annotation.withannotation.web;
 
 import jakarta.annotation.security.RolesAllowed;
+import org.aopalliance.intercept.MethodInvocation;
+import org.springframework.aop.Advisor;
+import org.springframework.aop.support.JdkRegexpMethodPointcut;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authorization.AuthorityAuthorizationManager;
+import org.springframework.security.authorization.AuthorizationManager;
+import org.springframework.security.authorization.method.AuthorizationInterceptorsOrder;
+import org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,7 +35,6 @@ public class ResourcesController {
 
         return "/protected -> userName : " + principal.getName() + " - authorities : " + auth;
     }
-
 
     @RolesAllowed("USER")
     @GetMapping("user")
