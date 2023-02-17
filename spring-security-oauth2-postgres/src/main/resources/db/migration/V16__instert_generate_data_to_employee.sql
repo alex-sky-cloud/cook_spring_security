@@ -10,3 +10,4 @@ SELECT generate_series(4, 7),
                rpad(CAST (random() AS text),12,
                     CAST(random() AS text)),
                '^0\.(\d{3})(\d{3})(\d{4}).*$','7\1\2\3') AS random);
+/*последняя строка будет генерировать один и тот же номер для всех строк.*/
